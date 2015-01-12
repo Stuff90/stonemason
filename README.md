@@ -7,7 +7,7 @@ First draft of a full scal project builder and its dependencies.
 Clone repository in your HOME
 
 
-Add this line in your .bash_profile
+Add this line in your `.bash_profile`
 
 ```
 . ~/stonemason/stonemason.sh
