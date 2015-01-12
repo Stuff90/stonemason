@@ -1,6 +1,8 @@
 # Project builder
 
-### Install
+First draft of a full scal project builder and its dependencies.
+
+## Install
 
 Clone repository in your HOME
 
@@ -16,9 +18,9 @@ Then run following command
 $ source .bash_profile
 ```
 
-First draft of a full scal project builder and its dependencies.
+## Use
 
-### Step one : Wordpress setup automator
+#### Step one : Wordpress setup automator
 
 ```bash
 $ stonemason wordpress themeName
