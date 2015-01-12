@@ -2,6 +2,10 @@
 
 	'use strict';
 
-	console.info('Ready to go !');
+	define(['jquery'], function($) {
+
+		console.info('Here come the sun !');
+
+	});
 
 })(this);

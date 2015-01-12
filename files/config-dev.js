@@ -1,6 +1,7 @@
 /*global requirejs*/
 
 requirejs.config({
+    deps: ['main'],
 
     paths: {
 
@@ -11,18 +12,5 @@ requirejs.config({
     },
 
     shim: {},
-
-    modules: [
-        {
-            namespace: 'main',
-            name: 'main',
-            create: true,
-            include: [
-                'modernizr',
-                'requirelib',
-                'jquery'
-            ]
-        }
-    ]
 
 });

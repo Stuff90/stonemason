@@ -98,7 +98,7 @@ __stonemason_wordpress () {
 
     mkdir -p wp-content/themes/${1}/scripts/${appName}
     cp ~/stonemason/files/config-dev.js wp-content/themes/${1}/scripts/config-dev.js
-    cp ~/stonemason/files/config-prod.js wp-content/themes/${1}/scripts/config-prod.js
+    cp ~/stonemason/files/config-dist.js wp-content/themes/${1}/scripts/config-dist.js
     cp ~/stonemason/files/main.js wp-content/themes/${1}/scripts/${appName}/main.js
 
 }

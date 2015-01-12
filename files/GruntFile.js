@@ -29,24 +29,21 @@ module.exports = function (grunt) {
 
         watch: {
             less: {
-                files: ['<%= config.src %>/less/*.less'],
+                files: ['<%= config.src %>/less/{,*/}*.less'],
                 tasks: ['less:dev'],
                 options: {
                     spawn: false,
                     interrupt: true
                 },
             },
-            // livereload: {
-            //     options: {
-            //         livereload: '<%= connect.options.livereload %>'
-            //     },
-            //     files: [
-            //         '<%= config.src %>/*.html',
-            //         '.tmp/styles/{,*/}*.css',
-            //         '{.tmp,<%= config.src %>}/scripts/{,*/}*.js',
-            //         '<%= config.src %>/<%= config.images %>/{,*/}*.{gif,jpeg,jpg,png,svg,webp}'
-            //     ]
-            // }
+            requirejs: {
+                files: ['<%= config.src %>/scripts/{,*/}*.js'],
+                tasks: ['requirejs:dev','copy:dev'],
+                options: {
+                    spawn: false,
+                    interrupt: true
+                },
+            }
         },
 
         connect: {
@@ -78,6 +75,8 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
+                        '<%= config.src %>/main.js',
+                        '<%= config.src %>/main.js.map',
                         '<%= config.src %>/tmp',
                         '<%= config.src %>/dist',
                     ]
@@ -160,6 +159,18 @@ module.exports = function (grunt) {
         },
 
         copy: {
+            dev: {
+                files: [
+                    {
+                        src: '<%= config.src %>/tmp/main.js',
+                        dest: '<%= config.src %>/main.js'
+                    },
+                    {
+                        src: '<%= config.src %>/tmp/main.js.map',
+                        dest: '<%= config.src %>/main.js.map'
+                    }
+                ]
+            },
             dist: {
                 src: '<%= config.src %>/dist/main.js',
                 dest: '<%= config.src %>/main.js'
@@ -192,20 +203,22 @@ module.exports = function (grunt) {
         requirejs: {
             dev: {
                 options: {
+                    name:'main',
                     optimize: 'none',
                     preserveLicenseComments: true,
                     generateSourceMaps: true,
                     removeCombined: true,
-                    allowSourceOverwrites: true,
                     useStrict: true,
                     baseUrl: '<%= config.src %>/scripts/<%= config.appName %>',
                     mainConfigFile: '<%= config.src %>/scripts/config-dev.js',
-                    dir: '<%= config.src %>/tmp/',
+                    out: '<%= config.src %>/tmp/main.js',
+                    allowSourceOverwrites: true,
                     keepBuildDir: true
                 }
             },
             dist: {
                 options: {
+                    name:'main',
                     optimize: 'uglify',
                     preserveLicenseComments: false,
                     generateSourceMaps: false,
@@ -213,7 +226,7 @@ module.exports = function (grunt) {
                     useStrict: true,
                     baseUrl: '<%= config.src %>/scripts/<%= config.appName %>',
                     mainConfigFile: '<%= config.src %>/scripts/config-dist.js',
-                    dir: '<%= config.dist %>/scripts',
+                    out: '<%= config.src %>/dist/main.js',
                     keepBuildDir: true
                 }
             }
