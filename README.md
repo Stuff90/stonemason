@@ -20,7 +20,7 @@ $ source .bash_profile
 
 ## Use
 
-#### Step one : Wordpress setup automator
+#### Wordpress generator
 
 ```bash
 $ stonemason wordpress themeName
