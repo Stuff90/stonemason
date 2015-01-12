@@ -1,0 +1,21 @@
+{
+	"name": "#appName#",
+	"version": "#appVersion#",
+	"main": "index.php",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"app/bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"normalize-less": "*",
+		"requirejs": "~2.1.9",
+		"lesshat": "~2.0.8",
+		"modernizr": "~2.7.0",
+		"jquery": "~2.1.1"
+	},
+	"devDependencies": {}
+}
