@@ -21,11 +21,6 @@ __stonemason_wordpress () {
 
     touch wp-content/themes/${1}/style.css
 
-    cp ~/stonemason/files/style.less wp-content/themes/${1}/less/style.less
-    touch wp-content/themes/${1}/less/variables.less
-    touch wp-content/themes/${1}/less/fonts.less
-    touch wp-content/themes/${1}/less/mixins/mixins.less
-
     rm -R .git
 
     echo -e "A wordpress has been planted !"
@@ -101,6 +96,11 @@ __stonemason_wordpress () {
     cp ~/stonemason/files/config-dist.js wp-content/themes/${1}/scripts/config-dist.js
     cp ~/stonemason/files/main.js wp-content/themes/${1}/scripts/${appName}/main.js
 
+    # ================
+    # Create CSS files
+    # ================
+
+    cp -r ~/stonemason/files/less wp-content/themes/${1}/less
 }
 
 
