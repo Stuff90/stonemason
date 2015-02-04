@@ -1,0 +1,42 @@
+
+
+html {
+    font-size   : @font-size-default;
+    font-family : @font-family-default;
+    .size();
+}
+
+body {
+    background:@white;
+    .font-size(12px);
+}
+
+* {
+    box-sizing:border-box;
+}
+
+.clearfix {
+    display:table;
+    float:none;
+    &:after {
+        float:none;
+        display:table;
+        content:'';
+    }
+}
+
+a, a:visited, a:link {
+    &.white {
+        color:@white;
+    }
+    color:@link;
+    text-decoration:none;
+}
+a:hover {
+    &.white {
+        color:@white;
+    }
+    text-decoration:underline;
+    color:@linkHover;
+}
+
