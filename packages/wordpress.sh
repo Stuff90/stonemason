@@ -5,7 +5,7 @@ __stonemason_wordpress () {
     # =======================
     # Clone WordPress package
     # =======================
-    git clone https://github.com/WordPress/WordPress.git ${1}
+    git clone --branch 4.1-branch https://github.com/WordPress/WordPress.git ${1}
     cd ${1}
     mkdir wp-content/themes/${1}
 
