@@ -178,10 +178,10 @@ __stonemason_wordpress () {
     # Create js app files
     # ===================
 
-    mkdir -p wp-content/themes/${1}/scripts/${appName}
-    cp ~/stonemason/files/config-dev.js wp-content/themes/${1}/scripts/config-dev.js
-    cp ~/stonemason/files/config-dist.js wp-content/themes/${1}/scripts/config-dist.js
-    cp ~/stonemason/files/main.js wp-content/themes/${1}/scripts/${appName}/main.js
+    mkdir -p wp-content/themes/${themeName}/scripts/${appName}
+    cp ~/stonemason/files/config-dev.js wp-content/themes/${themeName}/scripts/config-dev.js
+    cp ~/stonemason/files/config-dist.js wp-content/themes/${themeName}/scripts/config-dist.js
+    cp ~/stonemason/files/main.js wp-content/themes/${themeName}/scripts/${appName}/main.js
 
     # ================
     # Create CSS files
