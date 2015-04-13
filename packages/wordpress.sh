@@ -77,6 +77,7 @@ __stonemason_wordpress () {
     # =========================
     cp ~/stonemason/files/package.json ./package.json
 
+
     # App name
     echo -e "${INVITE}What will be the new ${LPURPLE}App name${RESTORE} ? "
     echo -e "${INVITE}The Front ${LPURPLE}App name${RESTORE} is simply the name of the directory where the front js files will be stored"
