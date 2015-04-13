@@ -95,11 +95,19 @@ __stonemason_wordpress () {
 
 
     # App version
-    read -r -p "Version ? (0.0.1): " appVersion
+    echo -e "${INVITE}What is the ${LBLUE}App version${RESTORE} you want to set for the fron app ${LPURPLE}${appName}${RESTORE} ?"
+    echo -e "${INVITE}Default : ${LBLUE}0.0.1${RESTORE}"
+    read -r -p "" appVersion
     if [ -z "$appVersion" ]; then
     	appVersion="0.0.1"
     fi
     sed -i -e "s/#appVersion#/$appVersion/g" package.json
+
+    echo -e ""; echo -e "";
+    echo -e "${INFO}Great, we are working on ${LPURPLE}${appName}${RESTORE} at ${LBLUE}${appVersion}${RESTORE} for project ${LRED}${themeName}${RESTORE} !"
+    echo -e ""; echo -e "";
+
+
 
     # App author
     read -r -p "Author ?: " appAuthor
