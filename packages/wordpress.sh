@@ -187,7 +187,28 @@ __stonemason_wordpress () {
     # Create CSS files
     # ================
 
-    cp -r ~/stonemason/files/less wp-content/themes/${1}/less
+    echo -e "${INFO}Now we need to plant the LESS structure !"
+    echo -e "${INVITE}Ready ?"
+    read
+
+    git clone https://github.com/christopher-ramirez/remixings.git wp-content/themes/${themeName}/less/remixings && rm -rf wp-content/themes/${themeName}/less/remixings/.git
+
+
+    echo -e "${INFO}Last step, pass a grunt build, just to be sure all dependencies are there"
+    echo -e "${INVITE}Ready ?"
+    read
+
+
+    rm -rf .bowerrc-e
+    rm -rf package.json-e
+    rm -rf bower.json-e
+    rm -rf GruntFile.js-e
+
+    clear
+    grunt build
+
+    echo -e "${INFO}It's all good"
+    echo -e "${INFO}Have fun captain ;)"
 }
 
 
