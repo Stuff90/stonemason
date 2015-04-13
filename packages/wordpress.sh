@@ -78,11 +78,21 @@ __stonemason_wordpress () {
     cp ~/stonemason/files/package.json ./package.json
 
     # App name
-    read -r -p "App name ? (${themeName}): " appName
+    echo -e "${INVITE}What will be the new ${LPURPLE}App name${RESTORE} ? "
+    echo -e "${INVITE}The Front ${LPURPLE}App name${RESTORE} is simply the name of the directory where the front js files will be stored"
+    echo -e "${INVITE}Default : ${LRED}${themeName}${RESTORE}"
+    read -r -p "" appName
     if [ -z "$appName" ]; then
-    	appName=${themeName}
+        appName=${themeName}
     fi
     sed -i -e "s/#appName#/$appName/g" package.json
+
+    echo -e ""; echo -e "";
+    echo -e "${INFO}The front app name of project ${LRED}${themeName}${RESTORE} is now ${LPURPLE}${appName}${RESTORE} !"
+    echo -e ""; echo -e "";
+
+
+
 
     # App version
     read -r -p "Version ? (0.0.1): " appVersion
