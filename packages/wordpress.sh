@@ -145,6 +145,11 @@ __stonemason_wordpress () {
     # =======================
     # Add the bower.json file
     # =======================
+
+    echo -e "${INFO}Now we will run bower install"
+    echo -e "${INVITE}Ready ?"
+    read
+
     cp ~/stonemason/files/bower.json ./bower.json
 
     sed -i -e "s/#appName#/$appName/g" bower.json
@@ -153,7 +158,7 @@ __stonemason_wordpress () {
     cp ~/stonemason/files/.bowerrc ./.bowerrc
     sed -i -e "s/#themeName#/$themeName/g" .bowerrc
 
-    rm bower.json-e
+    clear
 
     bower install
 
@@ -162,12 +167,11 @@ __stonemason_wordpress () {
     # =========================
     # Add the GruntFile.js file
     # =========================
+
     cp ~/stonemason/files/GruntFile.js ./GruntFile.js
 
     sed -i -e "s/#themeName#/$themeName/g" GruntFile.js
     sed -i -e "s/#appName#/$appName/g" GruntFile.js
-
-    rm GruntFile.js-e
 
 
     # ===================
