@@ -1,29 +1,75 @@
 __stonemason_wordpress () {
-	themeName=${1}
+    projectName=${1}
 
 
     # =======================
     # Clone WordPress package
     # =======================
-    git clone --branch 4.1-branch https://github.com/WordPress/WordPress.git ${1}
-    cd ${1}
-    mkdir wp-content/themes/${1}
 
-    mkdir -p wp-content/themes/${1}/less/mixins
-    mkdir -p wp-content/themes/${1}/res/img
-    mkdir -p wp-content/themes/${1}/res/font
+    echo -e "${INVITE}Which version of WordPress do we use ? : "
+    echo -e "${INVITE}The version type must match a tag in the official WordPress github repository "
+    echo -e "${INVITE}Default : 4.1.1"
+    read -r -p "" wordpressTagVersion
 
-    touch wp-content/themes/${1}/index.php
-    touch wp-content/themes/${1}/functions.php
-    touch wp-content/themes/${1}/header.php
-    touch wp-content/themes/${1}/footer.php
+    if [ -z "$wordpressTagVersion" ]; then
+        wordpressTagVersion="4.1.1"
+    fi
+
+    echo -e "${INFO}We will install WordPress at its version ${wordpressTagVersion}"
+    echo -e "${INFO}Git can do this job, see :"
+    echo -e ""
+
+    git clone -b ${wordpressTagVersion} https://github.com/WordPress/WordPress.git ${projectName}
+
+    cd ${projectName}
+
+    rm -rf .git
+    clear
+
+    echo -e ""
+    echo -e "${INFO}A wordpress ${wordpressTagVersion} has been planted !"
+    echo -e ""
+    echo -e "${NOTICE}We will now set the project NOTICErmations :"
+    echo -e "${NOTICE}    -> ${LRED}Theme name${RESTORE}"
+    echo -e "${NOTICE}    -> Front ${LPURPLE}App name${RESTORE}"
+    echo -e "${NOTICE}    -> Front ${LBLUE}App version${RESTORE}"
+    echo -e "${NOTICE}    -> Front App Author"
+    echo -e "${NOTICE}    -> Front App Description"
+    echo -e ""
+    echo -e "${INFO}Get ready ..."
+    echo -e ""
+
+    # Theme name
+    echo -e "${INVITE}What will be the new ${LRED}Theme name${RESTORE} ? "
+    echo -e "${INVITE}Default : ${projectName}"
+    read -r -p "" themeName
+    if [ -z "$themeName" ]; then
+        themeName=${projectName}
+    fi
+
+    mkdir wp-content/themes/${themeName}
+
+    # mkdir -p wp-content/themes/${themeName}/less/mixins
+    mkdir -p wp-content/themes/${themeName}/res/img
+    mkdir -p wp-content/themes/${themeName}/res/font
+
+    touch wp-content/themes/${themeName}/index.php
+    touch wp-content/themes/${themeName}/functions.php
+    touch wp-content/themes/${themeName}/header.php
+    touch wp-content/themes/${themeName}/footer.php
 
 
-    touch wp-content/themes/${1}/style.css
+    touch wp-content/themes/${themeName}/style.css
 
-    rm -R .git
+    echo -e "${INFO}Alright, theme ${LRED}${themeName}${RESTORE} created !"
+    echo -e "${INFO}The basic files has been planted as well, look :"
 
-    echo -e "A wordpress has been planted !"
+    echo -e ""
+    echo -e "$> ls -lai wp-content/themes/${LRED}${themeName}${RESTORE}"
+    echo -e ""
+    ls -lai wp-content/themes/${themeName}
+    echo -e ""
+
 
 
     # =========================
