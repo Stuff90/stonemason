@@ -110,14 +110,33 @@ __stonemason_wordpress () {
 
 
     # App author
-    read -r -p "Author ?: " appAuthor
+    echo -e "${INVITE}And who is the author of this app ?"
+    read -r -p "" appAuthor
     sed -i -e "s/#appAuthor#/$appAuthor/g" package.json
 
     # App description
-    read -r -p "Description ?: " appDescription
+    echo -e "${INVITE}Add a quick description of ${LRED}${appName}${RESTORE}, it will be easier to get more developers work on this !"
+    read -r -p "" appDescription
     sed -i -e "s/#appDescription#/$appDescription/g" package.json
 
-    rm package.json-e
+
+    echo -e ""; echo -e "";
+    echo -e "${INFO}Quick summary ?"
+    echo -e ""
+    echo -e "${NOTICE}  Project name : ${projectName}"
+    echo -e "${NOTICE}  The project is Wordpress-based"
+    echo -e "${NOTICE}  The dedicated theme name is ${LRED}${themeName}${RESTORE}"
+    echo -e "${NOTICE}  In this theme, the front application ${LPURPLE}${appName}${RESTORE} has been created at version ${LBLUE}${appVersion}${RESTORE}"
+    echo -e "${NOTICE}  ${appAuthor} authored the Front App, see the description :"
+    echo -e "${NOTICE}  ${appDescription}"
+
+    echo -e ""; echo -e "";
+
+    echo -e "${INFO}Now we will run npm install"
+    echo -e "${INVITE}Ready ?"
+    read
+
+    clear
 
     npm install
 
