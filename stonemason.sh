@@ -1,3 +1,4 @@
+. ~/stonemason/style.sh
 . ~/stonemason/packages/wordpress.sh
 
 stonemason () {
