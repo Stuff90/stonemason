@@ -20,13 +20,8 @@ $ source .bash_profile
 
 ## Use
 
-#### Wordpress generator
+Call to `stonemason` without any parameter to use it.
 
 ```bash
-$ stonemason wordpress themeName
+$ stonemason
 ```
-Alias
-```bash
-$ stonemason wp themeName
-```
-Then follow the instruction in command line.
