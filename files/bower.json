@@ -15,7 +15,8 @@
 		"requirejs": "~2.1.9",
 		"lesshat": "~2.0.8",
 		"modernizr": "~2.7.0",
-		"jquery": "~2.1.1"
+		"jquery": "~2.1.1",
+        "BrowserDetect"	: "https://github.com/Stuff90/BrowserDetect.git"
 	},
 	"devDependencies": {}
 }
