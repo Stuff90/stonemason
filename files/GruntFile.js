@@ -21,13 +21,6 @@ module.exports = function (grunt) {
             images: 'bin'
         },
 
-        // 'bower-install': {
-        //     src: {
-        //         html: '<%= config.src %>/index.html',
-        //         ignorePath: '<%= config.src %>/'
-        //     }
-        // },
-
         express: {
             all: {
                 options: {
@@ -41,28 +34,30 @@ module.exports = function (grunt) {
 
 
         watch: {
-              all: {
-                files: ['<%= config.src %>/less/{,*/}*.less'],
+            express: {
+                files: ['<%= config.src %>less/{,*/}*.less'],
+                tasks:  [ 'express:all' ],
                 options: {
-                  livereload: true,
-                },
-              },
+                    spawn: false
+                }
+            },
             less: {
-                files: ['<%= config.src %>/less/{,*/}*.less'],
-                tasks: ['less:dev'],
+                files: ['<%= config.src %>less/{,*/}*.less'],
+                tasks: ['less:dev', 'concat:dev'],
                 options: {
+                    livereload: true,
                     spawn: false,
                     interrupt: true
                 },
             },
             requirejs: {
-                files: ['<%= config.src %>/scripts/{,*/}*.js'],
+                files: ['<%= config.src %>scripts/{,*/}*.js'],
                 tasks: ['requirejs:dev','copy:dev'],
                 options: {
                     spawn: false,
                     interrupt: true
                 },
-            }
+            },
         },
 
         open: {
@@ -77,131 +72,73 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '<%= config.src %>/main.js',
-                        '<%= config.src %>/main.js.map',
-                        '<%= config.src %>/tmp',
-                        '<%= config.src %>/dist',
+                        '<%= config.src %>main.js',
+                        '<%= config.src %>main.js.map',
+                        '<%= config.src %>tmp',
+                        '<%= config.src %>dist',
+                        '<%= config.src %>res/public/*',
                     ]
                 }]
             },
-            dev: '<%= config.src %>/tmp'
+            dev: '<%= config.src %>tmp'
         },
 
-        // jshint: {
-        //     options: {
-        //         jshintrc: 'node_modules/grunt-contrib-jshint/.jshintrc',
-        //         reporter: require('jshint-stylish')
-        //     },
-        //     all: [
-        //         'Gruntfile.js',
-        //         '<%= config.src %>/scripts/{,*/}*.js'
-        //     ]
-        // },
+        jshint: {
+            options: {
+                curly: true,
+                eqeqeq: true,
+                eqnull: true,
+                browser: true,
+                globals: {
+                    jQuery: true
+                },
+            },
+            all: ['<%= config.src %>scripts/<%= config.appName %>/**.js']
+        },
 
-        // rev: {
-        //     dist: {
-        //         files: {
-        //             src: [
-        //                 '<%= config.dist %>/scripts/{,*/}*.js',
-        //                 '<%= config.dist %>/styles/{,*/}*.css',
-        //                 '<%= config.dist %>/<%= config.images %>/{,*/}*.{gif,jpeg,jpg,png,webp}',
-        //                 '<%= config.dist %>/fonts/{,*/}*.*'
-        //             ]
-        //         }
-        //     }
-        // },
-
-        // useminPrepare: {
-        //     options: {
-        //         dest: '<%= config.dist %>'
-        //     },
-        //     html: '<%= config.src %>/index.html'
-        // },
-
-        // usemin: {
-        //     options: {
-        //         assetsDirs: ['<%= config.dist %>']
-        //     },
-        //     html: ['<%= config.dist %>/{,*/}*.html'],
-        //     css: ['<%= config.dist %>/styles/{,*/}*.css']
-        // },
-
-        // imagemin: {
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: '<%= config.src %>/<%= config.images %>',
-        //             src: '{,*/}*.{gif,jpeg,jpg,png}',
-        //             dest: '<%= config.dist %>/<%= config.images %>'
-        //         }]
-        //     }
-        // },
-
-        // svgmin: {
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: '<%= config.src %>/<%= config.images %>',
-        //             src: '{,*/}*.svg',
-        //             dest: '<%= config.dist %>/<%= config.images %>'
-        //         }]
-        //     }
-        // },
-
-        // htmlmin: {
-        //     dist: {
-        //         options: {},
-        //         files: [{
-        //             expand: true,
-        //             cwd: '<%= config.src %>',
-        //             src: '*.html',
-        //             dest: '<%= config.dist %>'
-        //         }]
-        //     }
-        // },
 
         copy: {
             dev: {
                 files: [
                     {
-                        src: '<%= config.src %>/tmp/main.js',
-                        dest: '<%= config.src %>/main.js'
+                        src: '<%= config.src %>tmp/main.js',
+                        dest: '<%= config.src %>main.js'
                     },
                     {
-                        src: '<%= config.src %>/tmp/main.js.map',
-                        dest: '<%= config.src %>/main.js.map'
+                        src: '<%= config.src %>tmp/main.js.map',
+                        dest: '<%= config.src %>main.js.map'
                     }
                 ]
             },
             dist: {
-                src: '<%= config.src %>/dist/main.js',
-                dest: '<%= config.src %>/main.js'
+                files: [
+                    {
+                        src: '<%= config.src %>dist/main.js',
+                        dest: '<%= config.src %>main.js'
+                    }
+                ]
             }
         },
 
-
-        // usemin: {
-        //     html: ['<%= config.src %>/index.php'],
-        // },
-
-        // concurrent: {
-        //     dev: [
-        //         'less:dev'
-        //     ],
-        //     dist: [
-        //         'less:dist',
-        //         'imagemin',
-        //         'svgmin',
-        //         'htmlmin'
-        //     ]
-        // },
+        concurrent: {
+            dev: [
+                'imagemin:dev',
+                'less:dev',
+                'requirejs:dev'
+            ],
+            dist: [
+                'imagemin:dist',
+                'less:dist',
+                'requirejs:dist'
+            ]
+        },
 
         modernizr: {
-            'devFile': '<%= config.src %>/bower_components/modernizr/modernizr.js',
-            'outputFile': '<%= config.src %>/<%= config.dist %>/bower_components/modernizr/modernizr.js',
+            'devFile': '<%= config.src %>bower_components/modernizr/modernizr.js',
+            'outputFile': '<%= config.src %><%= config.dist %>/bower_components/modernizr/modernizr.js',
             files: [
-                '<%= config.src %>/<%= config.dist %>/scripts/{,*/}*.js',
-                '<%= config.src %>/<%= config.dist %>/styles/{,*/}*.css'
+                '<%= config.src %><%= config.dist %>/scripts/{,*/}*.js',
+                '<%= config.src %><%= config.dist %>/styles/{,*/}*.css'
             ],
             'parseFiles': true,
             uglify: true
@@ -209,14 +146,16 @@ module.exports = function (grunt) {
 
 
         concat: {
-            themedev: {
-                src: ['<%= config.src %>/theme.info', '<%= config.src %>/tmp/style.css'],
-                dest: '<%= config.src %>/style.css',
+            dev: {
+                files: {
+                    '<%= config.src %>style.css' : ['<%= config.src %>theme.info', '<%= config.src %>tmp/style.css'],
+                    '<%= config.src %>main.js' : ['<%= config.src %>theme.info', '<%= config.src %>tmp/main.js']
+                }
             },
-            themedist: {
-                src: ['<%= config.src %>/theme.info', '<%= config.src %>/dist/style.css'],
-                dest: '<%= config.src %>/style.css',
-        }
+            dist: {
+                src: ['<%= config.src %>theme.info', '<%= config.src %>dist/style.css'],
+                dest: '<%= config.src %>style.css',
+            }
         },
 
 
@@ -229,9 +168,9 @@ module.exports = function (grunt) {
                     generateSourceMaps: true,
                     removeCombined: true,
                     useStrict: true,
-                    baseUrl: '<%= config.src %>/scripts/<%= config.appName %>',
-                    mainConfigFile: '<%= config.src %>/scripts/config-dev.js',
-                    out: '<%= config.src %>/tmp/main.js',
+                    baseUrl: '<%= config.src %>scripts/<%= config.appName %>',
+                    mainConfigFile: '<%= config.src %>scripts/config-dev.js',
+                    out: '<%= config.src %>tmp/main.js',
                     allowSourceOverwrites: true,
                     keepBuildDir: true
                 }
@@ -244,13 +183,58 @@ module.exports = function (grunt) {
                     generateSourceMaps: false,
                     removeCombined: true,
                     useStrict: true,
-                    baseUrl: '<%= config.src %>/scripts/<%= config.appName %>',
-                    mainConfigFile: '<%= config.src %>/scripts/config-dist.js',
-                    out: '<%= config.src %>/dist/main.js',
+                    baseUrl: '<%= config.src %>scripts/<%= config.appName %>',
+                    mainConfigFile: '<%= config.src %>scripts/config-dist.js',
+                    out: '<%= config.src %>dist/main.js',
                     keepBuildDir: true
                 }
             }
         },
+
+
+        imagemin: {
+            dev : {
+                options: {
+                    optimizationLevel: 0,
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.src %>res/img',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= config.src %>res/public/'
+                }]
+            },
+            dist : {
+                options: {
+                    optimizationLevel: 7,
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.src %>res/img',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= config.src %>res/public/'
+                }]
+            }
+        },
+
+
+        sprite: {
+            dev : {
+                src: ['<%= config.src %>res/public/sprite/*.png'],
+                dest: '<%= config.src %>res/public/sprite.generated.png',
+                destCss: '<%= config.src %>less/conf/sprite.generated.less',
+                algorithm: 'binary-tree',
+                padding: 5
+            },
+            dist : {
+                src: ['<%= config.src %>res/public/sprite/*.png'],
+                dest: '<%= config.src %>res/public/sprite.generated.png',
+                destCss: '<%= config.src %>less/conf/sprite.generated.less',
+                algorithm: 'binary-tree',
+            }
+        },
+
+
 
         less: {
             dev: {
@@ -258,7 +242,7 @@ module.exports = function (grunt) {
                     sourceMap: true
                 },
                 files: {
-                    '<%= config.src %>/tmp/style.css': '<%= config.src %>/less/style.less'
+                    '<%= config.src %>tmp/style.css': '<%= config.src %>less/style.less'
                 }
             },
             dist: {
@@ -267,47 +251,49 @@ module.exports = function (grunt) {
                     report: true
                 },
                 files: {
-                    '<%= config.src %>/dist/style.css': '<%= config.src %>/less/style.less'
+                    '<%= config.src %>dist/style.css': '<%= config.src %>less/style.less'
                 }
             }
         }
 
     });
 
-    // Tasks.
-    // grunt.registerTask('default', ['jshint', 'build']);
 
-    // grunt.registerTask('server', [
-    //     'express',
-    //     'open',
-    //     'watch'
-    //     ]);
+    grunt.registerTask('image', [
+        'imagemin:dev',
+        'sprite:dev',
+    ]);
 
-    // grunt.registerTask('build', [
-        // 'clean:dist',
-        // 'useminPrepare',
-        // 'concurrent:dist',
-        // 'requirejs:dist',
-        // 'modernizr',
-        // 'copy:dist',
-        // 'rev',
-        // 'usemin'
-    //     'less'
-    // ]);
 
-    // grunt.registerTask('serve', function (target) {
+    grunt.registerTask('dev', [
+        'concurrent:dev',
+        'concat:dev',
+        'copy:dev'
+    ]);
 
-    //     if (target === 'build') {
-    //         return grunt.task.run(['build', 'connect:dist:keepalive']);
-    //     }
 
-    //     grunt.task.run([
-    //         'clean:server',
-    //         'concurrent:dev',
-    //         'requirejs:dev',
-    //         'connect:livereload',
-    //         'watch'
-    //     ]);
-    // });
+    grunt.registerTask('server', [
+        'dev',
+        'image',
+        'watch'
+    ]);
+
+
+    grunt.registerTask('live', [
+        'dev',
+        'image',
+        'express',
+        'open',
+        'watch'
+    ]);
+
+    grunt.registerTask('build', [
+        'clean:dist',
+        'concurrent:dist',
+        'sprite:dist',
+        'modernizr',
+        'concat:dist',
+        'copy:dist'
+    ]);
 
 };

@@ -2,7 +2,7 @@
 	Theme Name: #themeName#
 	Theme URI: #appURI#
 	Author: #appAuthor#
-	Author URI: #appURI#
+	Author URI: http://#appURI#
 	Description: #appDescription#
 	Version: #appVersion#
 	License: GNU General Public License v2 or later
