@@ -3,11 +3,12 @@
 ./node_modules
 ./wp-content/themes/*/bower_components
 ./wp-content/themes/*/dist
-./wp-content/themes/*/temp
+./wp-content/themes/*/tmp
 
 readme.html
 wp-content/themes/*/dist
-wp-content/themes/*/temp
+wp-content/themes/*/tmp
+wp-content/themes/*/res/public
 node_modules
 wp-content/themes/*/bower_components
 project.info
