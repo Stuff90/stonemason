@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             },
             requirejs: {
                 files: ['<%= config.src %>scripts/{,*/}*.js'],
-                tasks: ['requirejs:dev','copy:dev'],
+                tasks: ['requirejs:dev','copy:dev', 'jshint'],
                 options: {
                     spawn: false,
                     interrupt: true
