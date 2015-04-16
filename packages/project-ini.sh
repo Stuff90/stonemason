@@ -37,8 +37,8 @@ __stonemason_project_ini () {
 
 
     # App name
-    echo -e "${INVITE}What will be the new ${LRED}Theme name${RESTORE} ? "
-    echo -e "${INVITE}Default : ${defaultAppName}"
+    echo -e "${INVITE}What will be the new ${LPURPLE}App name${RESTORE} ? "
+    echo -e "${INVITE}Default : ${themeName}"
     read -r -p "" appName
     if [ -z "$appName" ]; then
         appName=${defaultAppName}
@@ -64,7 +64,7 @@ __stonemason_project_ini () {
 
 
     # App author URI
-    echo -e "${INVITE}Don't forgot to leave an URI where you can be found"
+    echo -e "${INVITE}Don't forgot to leave an URI where you can be found (without htt://)"
     read -r -p "" appURI
     if [ -z "$appURI" ]; then
     	appURI=${defaultAppURI}
