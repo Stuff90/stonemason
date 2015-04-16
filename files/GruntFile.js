@@ -1,3 +1,4 @@
+
 /*jshint node:true*/
 
 module.exports = function (grunt) {
@@ -20,14 +21,32 @@ module.exports = function (grunt) {
             images: 'bin'
         },
 
-        'bower-install': {
-            src: {
-                html: '<%= config.src %>/index.html',
-                ignorePath: '<%= config.src %>/'
+        // 'bower-install': {
+        //     src: {
+        //         html: '<%= config.src %>/index.html',
+        //         ignorePath: '<%= config.src %>/'
+        //     }
+        // },
+
+        express: {
+            all: {
+                options: {
+                    bases: ['C:\\inetpub\\wwwroot\\test'],
+                    port: 8080,
+                    hostname: "0.0.0.0",
+                    livereload: true
+                }
             }
         },
 
+
         watch: {
+              all: {
+                files: ['<%= config.src %>/less/{,*/}*.less'],
+                options: {
+                  livereload: true,
+                },
+              },
             less: {
                 files: ['<%= config.src %>/less/{,*/}*.less'],
                 tasks: ['less:dev'],
@@ -46,29 +65,12 @@ module.exports = function (grunt) {
             }
         },
 
-        connect: {
-            options: {
-                port: 9000,
-                livereload: 35729,
-                hostname: 'localhost' // '0.0.0.0' to access the server from outside
-            },
-            livereload: {
-                options: {
-                    open: true,
-                    base: [
-                        '.tmp',
-                        '<%= config.src %>'
-                    ]
-                }
-            },
-            dist: {
-                options: {
-                    open: true,
-                    base: '<%= config.dist %>',
-                    livereload: false
-                }
+        open: {
+            all: {
+                path: 'http://com.<%= config.themeName %>'
             }
         },
+
 
         clean: {
             dist: {
@@ -85,78 +87,78 @@ module.exports = function (grunt) {
             dev: '<%= config.src %>/tmp'
         },
 
-        jshint: {
-            options: {
-                jshintrc: 'node_modules/grunt-contrib-jshint/.jshintrc',
-                reporter: require('jshint-stylish')
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= config.src %>/scripts/{,*/}*.js'
-            ]
-        },
+        // jshint: {
+        //     options: {
+        //         jshintrc: 'node_modules/grunt-contrib-jshint/.jshintrc',
+        //         reporter: require('jshint-stylish')
+        //     },
+        //     all: [
+        //         'Gruntfile.js',
+        //         '<%= config.src %>/scripts/{,*/}*.js'
+        //     ]
+        // },
 
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        '<%= config.dist %>/scripts/{,*/}*.js',
-                        '<%= config.dist %>/styles/{,*/}*.css',
-                        '<%= config.dist %>/<%= config.images %>/{,*/}*.{gif,jpeg,jpg,png,webp}',
-                        '<%= config.dist %>/fonts/{,*/}*.*'
-                    ]
-                }
-            }
-        },
+        // rev: {
+        //     dist: {
+        //         files: {
+        //             src: [
+        //                 '<%= config.dist %>/scripts/{,*/}*.js',
+        //                 '<%= config.dist %>/styles/{,*/}*.css',
+        //                 '<%= config.dist %>/<%= config.images %>/{,*/}*.{gif,jpeg,jpg,png,webp}',
+        //                 '<%= config.dist %>/fonts/{,*/}*.*'
+        //             ]
+        //         }
+        //     }
+        // },
 
-        useminPrepare: {
-            options: {
-                dest: '<%= config.dist %>'
-            },
-            html: '<%= config.src %>/index.html'
-        },
+        // useminPrepare: {
+        //     options: {
+        //         dest: '<%= config.dist %>'
+        //     },
+        //     html: '<%= config.src %>/index.html'
+        // },
 
-        usemin: {
-            options: {
-                assetsDirs: ['<%= config.dist %>']
-            },
-            html: ['<%= config.dist %>/{,*/}*.html'],
-            css: ['<%= config.dist %>/styles/{,*/}*.css']
-        },
+        // usemin: {
+        //     options: {
+        //         assetsDirs: ['<%= config.dist %>']
+        //     },
+        //     html: ['<%= config.dist %>/{,*/}*.html'],
+        //     css: ['<%= config.dist %>/styles/{,*/}*.css']
+        // },
 
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.src %>/<%= config.images %>',
-                    src: '{,*/}*.{gif,jpeg,jpg,png}',
-                    dest: '<%= config.dist %>/<%= config.images %>'
-                }]
-            }
-        },
+        // imagemin: {
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= config.src %>/<%= config.images %>',
+        //             src: '{,*/}*.{gif,jpeg,jpg,png}',
+        //             dest: '<%= config.dist %>/<%= config.images %>'
+        //         }]
+        //     }
+        // },
 
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.src %>/<%= config.images %>',
-                    src: '{,*/}*.svg',
-                    dest: '<%= config.dist %>/<%= config.images %>'
-                }]
-            }
-        },
+        // svgmin: {
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= config.src %>/<%= config.images %>',
+        //             src: '{,*/}*.svg',
+        //             dest: '<%= config.dist %>/<%= config.images %>'
+        //         }]
+        //     }
+        // },
 
-        htmlmin: {
-            dist: {
-                options: {},
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.src %>',
-                    src: '*.html',
-                    dest: '<%= config.dist %>'
-                }]
-            }
-        },
+        // htmlmin: {
+        //     dist: {
+        //         options: {},
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= config.src %>',
+        //             src: '*.html',
+        //             dest: '<%= config.dist %>'
+        //         }]
+        //     }
+        // },
 
         copy: {
             dev: {
@@ -177,28 +179,46 @@ module.exports = function (grunt) {
             }
         },
 
-        concurrent: {
-            dev: [
-                'less:dev'
-            ],
-            dist: [
-                'less:dist',
-                'imagemin',
-                'svgmin',
-                'htmlmin'
-            ]
-        },
+
+        // usemin: {
+        //     html: ['<%= config.src %>/index.php'],
+        // },
+
+        // concurrent: {
+        //     dev: [
+        //         'less:dev'
+        //     ],
+        //     dist: [
+        //         'less:dist',
+        //         'imagemin',
+        //         'svgmin',
+        //         'htmlmin'
+        //     ]
+        // },
 
         modernizr: {
             'devFile': '<%= config.src %>/bower_components/modernizr/modernizr.js',
-            'outputFile': '<%= config.dist %>/bower_components/modernizr/modernizr.js',
+            'outputFile': '<%= config.src %>/<%= config.dist %>/bower_components/modernizr/modernizr.js',
             files: [
-                '<%= config.dist %>/scripts/{,*/}*.js',
-                '<%= config.dist %>/styles/{,*/}*.css'
+                '<%= config.src %>/<%= config.dist %>/scripts/{,*/}*.js',
+                '<%= config.src %>/<%= config.dist %>/styles/{,*/}*.css'
             ],
             'parseFiles': true,
             uglify: true
         },
+
+
+        concat: {
+            themedev: {
+                src: ['<%= config.src %>/theme.info', '<%= config.src %>/tmp/style.css'],
+                dest: '<%= config.src %>/style.css',
+            },
+            themedist: {
+                src: ['<%= config.src %>/theme.info', '<%= config.src %>/dist/style.css'],
+                dest: '<%= config.src %>/style.css',
+        }
+        },
+
 
         requirejs: {
             dev: {
@@ -238,7 +258,7 @@ module.exports = function (grunt) {
                     sourceMap: true
                 },
                 files: {
-                    '<%= config.src %>style.css': '<%= config.src %>/less/style.less'
+                    '<%= config.src %>/tmp/style.css': '<%= config.src %>/less/style.less'
                 }
             },
             dist: {
@@ -247,7 +267,7 @@ module.exports = function (grunt) {
                     report: true
                 },
                 files: {
-                    '<%= config.src %>style.css': '<%= config.src %>/less/style.less'
+                    '<%= config.src %>/dist/style.css': '<%= config.src %>/less/style.less'
                 }
             }
         }
@@ -255,32 +275,39 @@ module.exports = function (grunt) {
     });
 
     // Tasks.
-    grunt.registerTask('default', ['jshint', 'build']);
+    // grunt.registerTask('default', ['jshint', 'build']);
 
-    grunt.registerTask('build', [
-        'clean:dist',
-        'useminPrepare',
-        'concurrent:dist',
-        'requirejs:dist',
-        'modernizr',
-        'copy:dist',
-        'rev',
-        'usemin'
-    ]);
+    // grunt.registerTask('server', [
+    //     'express',
+    //     'open',
+    //     'watch'
+    //     ]);
 
-    grunt.registerTask('serve', function (target) {
-        
-        if (target === 'build') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
-        }
+    // grunt.registerTask('build', [
+        // 'clean:dist',
+        // 'useminPrepare',
+        // 'concurrent:dist',
+        // 'requirejs:dist',
+        // 'modernizr',
+        // 'copy:dist',
+        // 'rev',
+        // 'usemin'
+    //     'less'
+    // ]);
 
-        grunt.task.run([
-            'clean:server',
-            'concurrent:dev',
-            'requirejs:dev',
-            'connect:livereload',
-            'watch'
-        ]);
-    });
+    // grunt.registerTask('serve', function (target) {
+
+    //     if (target === 'build') {
+    //         return grunt.task.run(['build', 'connect:dist:keepalive']);
+    //     }
+
+    //     grunt.task.run([
+    //         'clean:server',
+    //         'concurrent:dev',
+    //         'requirejs:dev',
+    //         'connect:livereload',
+    //         'watch'
+    //     ]);
+    // });
 
 };

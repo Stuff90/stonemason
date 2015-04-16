@@ -3,9 +3,9 @@
     "version": "#appVersion#",
     "author": "#appAuthor#",
     "description": "#appDescription#",
-    "keywords": "",
+    "keywords": [],
     "repository": "",
-    "homepage": "",
+    "homepage": "#appURI#",
     "main": "index.html",
     "dependencies": {},
     "devDependencies": {
