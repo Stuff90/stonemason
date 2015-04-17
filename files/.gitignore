@@ -6,12 +6,15 @@
 ./wp-content/themes/*/tmp
 
 readme.html
+wp-content/themes/*/main.css
+wp-content/themes/*/main.js
+wp-content/themes/*/main.js.map
 wp-content/themes/*/dist
 wp-content/themes/*/tmp
-wp-content/themes/*/res/public
+wp-content/themes/*/res/public/*
 node_modules
 wp-content/themes/*/bower_components
-project.info
+project.ini
 sitemap.xml
 sitemap.xml.gz
 wp-config.php
