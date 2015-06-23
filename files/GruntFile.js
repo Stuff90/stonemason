@@ -21,31 +21,38 @@ module.exports = function (grunt) {
             images: 'bin'
         },
 
-        express: {
-            all: {
+
+        combine_mq: {
+            new_filename: {
                 options: {
-                    bases: ['C:\\inetpub\\wwwroot\\test'],
-                    port: 8080,
-                    hostname: "0.0.0.0",
-                    livereload: true
-                }
+                    beautify: true
+                },
+                src: '<%= config.src %>dist/style.css',
+                dest: '<%= config.src %>dist/style-mq.css'
             }
         },
 
 
         watch: {
-            express: {
-                files: ['<%= config.src %>less/{,*/}*.less'],
-                tasks:  [ 'express:all' ],
+            php: {
+                files: ['<%= config.src %>templates/**/*.php'],
                 options: {
-                    spawn: false
-                }
+                    livereload: true
+                },
             },
             less: {
-                files: ['<%= config.src %>less/{,*/}*.less'],
+                files: ['<%= config.src %>less/**/*.less'],
                 tasks: ['less:dev', 'concat:dev'],
                 options: {
                     livereload: true,
+                    spawn: false,
+                    interrupt: true
+                },
+            },
+            image: {
+                files: ['<%= config.src %>res/img/**/*'],
+                tasks: ['imagemin:dev', 'sprite:dev' ],
+                options: {
                     spawn: false,
                     interrupt: true
                 },
@@ -54,6 +61,7 @@ module.exports = function (grunt) {
                 files: ['<%= config.src %>scripts/**/*.js'],
                 tasks: ['requirejs:dev','copy:dev', 'jshint'],
                 options: {
+                    livereload: true,
                     interrupt: true,
                     forever: true,
                     spawn: true
@@ -73,11 +81,11 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '<%= config.src %>main.js',
-                        '<%= config.src %>main.js.map',
                         '<%= config.src %>tmp',
                         '<%= config.src %>dist',
-                        '<%= config.src %>res/public/*',
+                        '<%= config.src %>main.js',
+                        '<%= config.src %>main.js.map',
+                        '<%= config.src %>res/public/*'
                     ]
                 }]
             },
@@ -123,7 +131,6 @@ module.exports = function (grunt) {
 
         concurrent: {
             dev: [
-                'imagemin:dev',
                 'less:dev',
                 'requirejs:dev'
             ],
@@ -154,7 +161,7 @@ module.exports = function (grunt) {
                 }
             },
             dist: {
-                src: ['<%= config.src %>theme.info', '<%= config.src %>dist/style.css'],
+                src: ['<%= config.src %>theme.info', '<%= config.src %>dist/style-mq.css'],
                 dest: '<%= config.src %>style.css',
             }
         },
@@ -201,7 +208,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= config.src %>res/img',
-                    src: ['**/*.{png,jpg,gif}'],
+                    src: ['**/*.{png,jpg,jpeg,gif}'],
                     dest: '<%= config.src %>res/public/'
                 }]
             },
@@ -212,7 +219,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= config.src %>res/img',
-                    src: ['**/*.{png,jpg,gif}'],
+                    src: ['**/*.{png,jpg,jpeg,gif}'],
                     dest: '<%= config.src %>res/public/'
                 }]
             }
@@ -222,7 +229,6 @@ module.exports = function (grunt) {
         sprite: {
             dev : {
                 src: ['<%= config.src %>res/public/sprite/*.png'],
-                imgPath: 'res/public/sprite.generated.png',
                 dest: '<%= config.src %>res/public/sprite.generated.png',
                 destCss: '<%= config.src %>less/conf/sprite.generated.less',
                 algorithm: 'binary-tree',
@@ -230,7 +236,6 @@ module.exports = function (grunt) {
             },
             dist : {
                 src: ['<%= config.src %>res/public/sprite/*.png'],
-                imgPath: 'res/public/sprite.generated.png',
                 dest: '<%= config.src %>res/public/sprite.generated.png',
                 destCss: '<%= config.src %>less/conf/sprite.generated.less',
                 algorithm: 'binary-tree',
@@ -281,20 +286,12 @@ module.exports = function (grunt) {
         'watch'
     ]);
 
-
-    grunt.registerTask('live', [
-        'dev',
-        'image',
-        'express',
-        'open',
-        'watch'
-    ]);
-
     grunt.registerTask('build', [
         'clean:dist',
         'concurrent:dist',
         'sprite:dist',
         'modernizr',
+        'combine_mq',
         'concat:dist',
         'copy:dist'
     ]);
