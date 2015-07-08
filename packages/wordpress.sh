@@ -179,7 +179,7 @@ __stonemason_wordpress_gen () {
 
     clear
 
-    npm install
+    sudo npm install
 
 
     echo -e "${INFO}Now need to get dependencies through bower install"
