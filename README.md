@@ -1,6 +1,6 @@
 # Project builder
 
-First draft of a full scal project builder and its dependencies.
+First draft of a full scale project builder and its dependencies.
 
 ## Install
 
