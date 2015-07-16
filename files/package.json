@@ -4,6 +4,10 @@
     "author": "#appAuthor#",
     "description": "#appDescription#",
     "keywords": [],
+    "scripts": {
+        "start" : "sudo npm install ; bower install ; grunt server",
+        "deploy" : "sudo npm install ; bower install ; grunt build"
+    },
     "repository": "",
     "homepage": "http://#appURI#",
     "main": "index.html",
